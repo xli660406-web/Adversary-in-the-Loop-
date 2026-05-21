@@ -1,0 +1,31 @@
+"""
+AitL - Agent 基类
+"""
+
+from datetime import datetime
+
+
+class BaseAgent:
+    """Agent基类"""
+    def __init__(self, name, role):
+        self.name = name
+        self.role = role
+        self.log = []
+
+    def think(self, prompt):
+        """
+        模拟推理过程。
+        接入MiMo后，此方法将调用 API 进行真正的长链推理。
+        """
+        # TODO: 替换为 MiMo API 调用
+        # response = openai.ChatCompletion.create(
+        #     model="mimo-v2.5-pro",
+        #     messages=[{"role": "system", "content": self.role}, {"role": "user", "content": prompt}]
+        # )
+        response = f"[{self.name}] 收到指令，正在基于角色「{self.role}」进行推理..."
+        self.log.append({
+            "timestamp": datetime.now().isoformat(),
+            "prompt": prompt,
+            "response": response
+        })
+        return response
