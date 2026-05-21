@@ -1,0 +1,29 @@
+"""
+AitL - Arbiter Agent (仲裁者)
+"""
+
+import json
+from .base import BaseAgent
+
+
+class ArbiterAgent(BaseAgent):
+    """仲裁Agent：判定攻击是否成功，评估危害等级"""
+    def __init__(self):
+        super().__init__(
+            "Arbiter",
+            "你是一名安全架构师，负责仲裁红蓝双方的结论并输出最终的漏洞评估报告。"
+        )
+
+    def judge(self, red_result, blue_result):
+        """仲裁红蓝对抗结果"""
+        return self.think(
+            f"红队结论：{red_result}\n蓝队结论：{blue_result}\n"
+            "请做出最终仲裁，判定漏洞是否存在及其危害等级（Critical/High/Medium/Low/Info）。"
+        )
+
+    def generate_report(self, findings):
+        """生成最终渗透测试报告"""
+        findings_json = json.dumps(findings, ensure_ascii=False, indent=2)
+        return self.think(
+            f"基于以下发现，生成结构化的渗透测试报告，包含漏洞描述、复现步骤、修复建议：\n{findings_json}"
+        )
