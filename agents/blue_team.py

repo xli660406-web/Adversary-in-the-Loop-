@@ -1,0 +1,26 @@
+"""
+AitL - Blue Team Agent (防御者)
+"""
+
+from .base import BaseAgent
+
+
+class BlueTeamAgent(BaseAgent):
+    """防御者Agent：验证攻击可行性并给出防御方案"""
+    def __init__(self):
+        super().__init__(
+            "Blue Team",
+            "你是一名应用安全防御专家，负责验证攻击是否可行并给出修复建议。"
+        )
+
+    def verify(self, attack_plan):
+        """验证攻击方案是否可行"""
+        return self.think(
+            f"验证以下攻击方案是否可行，并评估其危害：{attack_plan}"
+        )
+
+    def suggest_fix(self, vulnerability):
+        """给出修复方案"""
+        return self.think(
+            f"针对以下漏洞，给出具体的代码级修复建议：{vulnerability}"
+        )
